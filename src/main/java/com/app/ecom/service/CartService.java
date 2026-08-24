@@ -50,4 +50,18 @@ public class CartService {
         return true;
 
     }
+
+    public boolean deleteItemFromCart(String userId, Long productId) {
+        Optional<Product> productOpt = productRepository.findById(productId);
+        if(productOpt.isEmpty()) return false;
+
+        Optional<User> userOpt = userRepository.findById(Long.valueOf(userId));
+        if(userOpt.isEmpty()) return false;
+
+        userOpt.flatMap( user -> productOpt.map(product -> {
+            cartItemRepository.deleteByUserAndProduct(user, product);
+            return true;
+        }));
+        return false;
+    }
 }
