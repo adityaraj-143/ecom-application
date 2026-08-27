@@ -14,6 +14,15 @@ services:
       - postgres
     restart: unless-stopped
 
+  mongodb:
+    image: mongo:8.0
+    container_name: mongodb
+    volumes:
+      - mongodb_data:/data/db
+    ports:
+      - "27017:27017"
+    restart: unless-stopped
+
   pgadmin:
     image: dpage/pgadmin4
     container_name: pgadmin_container
@@ -36,3 +45,4 @@ networks:
 volumes:
   postgres:
   pgadmin:
+  mongodb_data:
