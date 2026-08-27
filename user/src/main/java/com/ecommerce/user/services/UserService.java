@@ -25,8 +25,8 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
-    public Optional<UserResponse> fetchUser(Long id) {
-        return userRepository.findById(id)
+    public Optional<UserResponse> fetchUser(String id) {
+        return userRepository.findById(String.valueOf(id))
                 .map(this::mapToUserResponse);
     }
 
@@ -36,7 +36,7 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public boolean updateUser(long id, UserRequest updatedUserRequest) {
+    public boolean updateUser(String id, UserRequest updatedUserRequest) {
         return userRepository.findById(id)
                 .map(existingUser -> {
                     updateUserFromRequest(existingUser, updatedUserRequest);
