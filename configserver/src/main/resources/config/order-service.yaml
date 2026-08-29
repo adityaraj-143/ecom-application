@@ -9,6 +9,18 @@ spring:
     hibernate:
       ddl-auto: update
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    paasword: guest
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "busrefresh"
 
 server:
   port: 8083
+
