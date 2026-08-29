@@ -1,4 +1,37 @@
+# IDE / local editor files
 .idea/
 .vscode/
+*.iml
 
+# Build output and generated artifacts
 **/target/
+**/build/
+**/dist/
+**/node_modules/
+**/.gradle/
+
+# Environment and secrets
+**/.env
+**/.env.*
+!.env.example
+**/secrets/
+**/*.pem
+**/*.key
+**/*.crt
+
+# Logs and temp files
+**/*.log
+**/*.tmp
+**/*.temp
+**/*.swp
+**/*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Coverage
+**/coverage/
+
+# Docker/local runtime data
+**/.docker/
