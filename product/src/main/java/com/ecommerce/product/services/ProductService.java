@@ -17,6 +17,10 @@ import java.util.stream.Collectors;
 public class ProductService {
     private final ProductRepository productRepository;
 
+    public Optional<ProductResponse> getProductById (String id) {
+        return productRepository.findByIdAndActiveTrue(Long.valueOf(id)).map(this::mapToProductResponse);
+    };
+
     public ProductResponse createProduct(ProductRequest productRequest) {
         Product product = new Product();
         updateProductFromRequest(product, productRequest);
