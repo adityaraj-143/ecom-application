@@ -20,6 +20,7 @@
 **/*.crt
 
 # Logs and temp files
+logs/
 **/*.log
 **/*.tmp
 **/*.temp
@@ -35,3 +36,7 @@ Thumbs.db
 
 # Docker/local runtime data
 **/.docker/
+
+# Evaluation/prometheus data
+evaluate-prometheus/.data/
+additional/

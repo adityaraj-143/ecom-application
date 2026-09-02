@@ -57,5 +57,7 @@ networks:
 
 volumes:
   postgres:
+    name: ecom-application_postgres
+    external: true
   pgadmin:
   mongodb_data:
