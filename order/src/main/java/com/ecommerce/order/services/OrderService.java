@@ -22,7 +22,7 @@ public class OrderService {
 //    private final UserRepository userRepository;
     private final OrderRepository orderRepository;
 
-    public Optional<OrderResponse> createOrder(Long userId) {
+    public Optional<OrderResponse> createOrder(String userId) {
         List<CartItem> cartItems = cartService.fetchCart(userId);
         if(cartItems.isEmpty()) {
             return Optional.empty();

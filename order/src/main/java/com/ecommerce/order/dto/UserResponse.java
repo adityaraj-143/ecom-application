@@ -1,6 +1,5 @@
 package com.ecommerce.order.dto;
 
-import com.ecommerce.user.models.UserRole;
 import lombok.Data;
 
 @Data

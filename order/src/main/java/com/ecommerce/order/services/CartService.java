@@ -26,7 +26,7 @@ public class CartService {
     private final ProductServiceClient productServiceClient;
     private final UserServiceClient userServiceClient;
 
-    public boolean addToCart(Long userId, CartItemRequest request) {
+    public boolean addToCart(String userId, CartItemRequest request) {
         ProductResponse productResponse = productServiceClient.getProductDetails(request.getProductId());
         if(productResponse == null || productResponse.getStockQuantity() < request.getQuantity())
             return false;
@@ -52,7 +52,7 @@ public class CartService {
 
     }
 
-    public boolean deleteItemFromCart(Long userId, Long productId) {
+    public boolean deleteItemFromCart(String userId, Long productId) {
         CartItem cartItem = cartItemRepository.findByUserIdAndProductId(userId, productId);
 
         if(cartItem != null) {
@@ -62,11 +62,11 @@ public class CartService {
         return false;
     }
 
-    public List<CartItem> fetchCart(Long userId) {
+    public List<CartItem> fetchCart(String userId) {
         return cartItemRepository.findByUserId(userId);
     }
 
-    public void clearCart(Long userId) {
+    public void clearCart(String userId) {
         cartItemRepository.deleteByUserId(userId);
     }
 }
