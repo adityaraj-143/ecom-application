@@ -20,7 +20,7 @@ public class CartController {
     @PostMapping
     public ResponseEntity<String> addToCart(@RequestHeader("X-User-ID") String userId,@RequestBody CartItemRequest request) {
         if(!cartService.addToCart(userId, request)) {
-            return ResponseEntity.badRequest().body("Product out of stock or user not found or product not found");
+            return ResponseEntity.badRequest().body("Not able to complete request");
         };
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

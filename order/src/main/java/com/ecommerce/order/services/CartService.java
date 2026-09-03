@@ -8,6 +8,7 @@ import com.ecommerce.order.dto.ProductResponse;
 import com.ecommerce.order.dto.UserResponse;
 import com.ecommerce.order.models.CartItem;
 import com.ecommerce.order.repository.CartItemRepository;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.apache.catalina.User;
@@ -26,6 +27,7 @@ public class CartService {
     private final ProductServiceClient productServiceClient;
     private final UserServiceClient userServiceClient;
 
+    @CircuitBreaker(name = "productService", fallbackMethod = "addToCartFallback")
     public boolean addToCart(String userId, CartItemRequest request) {
         ProductResponse productResponse = productServiceClient.getProductDetails(request.getProductId());
         if(productResponse == null || productResponse.getStockQuantity() < request.getQuantity())
@@ -49,7 +51,6 @@ public class CartService {
         }
 
         return true;
-
     }
 
     public boolean deleteItemFromCart(String userId, Long productId) {
@@ -68,5 +69,9 @@ public class CartService {
 
     public void clearCart(String userId) {
         cartItemRepository.deleteByUserId(userId);
+    }
+
+    public boolean addToCartFallback(String userId, CartItemRequest request, Exception exception) {
+        return false;
     }
 }
