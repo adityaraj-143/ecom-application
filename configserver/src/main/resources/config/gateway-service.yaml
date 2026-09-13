@@ -36,7 +36,10 @@ management:
   endpoints:
     web:
       exposure:
-        include: "busrefresh,prometheus"
+        include: "busrefresh,prometheus,health,circuitbreakers"
+  endpoint:
+    health:
+      show-details: always
   tracing:
     sampling:
       probability: 1.0
@@ -44,3 +47,27 @@ management:
 server:
   port: 8080
 
+# Circuit Breaker
+resilience4j:
+  circuitbreaker:
+    instances:
+      ecomService:
+        registerHealthIndicator: true
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 5
+        permittedNumberOfCallsInHalfOpenState: 3
+        waitDurationInOpenState: 10s
+        failureRateThreshold: 50
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        slidingWindowType: COUNT_BASED
+  retry:
+    instances:
+      retryBreaker:
+        maxAttempts: 5
+        waitDuration: 4s
+  ratelimiter:
+    instances:
+      rateBreaker:
+        timeout-duration: 0
+        limit-refresh-period: 4s
+        limit-for-period: 2
