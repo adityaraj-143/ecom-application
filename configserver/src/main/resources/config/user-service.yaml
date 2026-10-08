@@ -38,3 +38,11 @@ eureka:
 
 server:
   port: 8082
+
+keycloak:
+  admin:
+    username: user
+    password: user
+    server-url: http://localhost:8443
+    realm: ecom_app
+    client-id: admin-cli
